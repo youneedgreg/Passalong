@@ -14,7 +14,7 @@ These checks decide what the demo can honestly claim. They were run before any n
 | --- | --- | --- | --- |
 | 1 | Starter runs on a Mac | 22 tests pass; the browser script prints the code `01E1-284G-02ZG` twice | **Passed** (14 Nov). macOS on Apple silicon, Node 24.12.0, Google Chrome. `npm run typecheck` clean; `npm test` 22 of 22; `npm run e2e` printed `01E1-284G-02ZG` twice (pack opened from disk, then the offline link). |
 | 2 | Live on HTTPS | Service worker "activated"; an offline reload of `/p/#...` still shows the worksheet | **Passed** (14 Nov) on https://passalong-pi.vercel.app. Worker activated and controlling the page. Offline in Chrome on the Mac: reload kept the worksheet, a wrong answer showed its feedback, the right one showed "Correct.", the code was `01E1-284G-02ZG`. `/`, `/collect/` and `/about/` also opened offline. The only host contacted was `passalong-pi.vercel.app`. |
-| 3 | Android, link | Worksheet opens in airplane mode and "Check answer" works | **Passed** (14 Nov). Samsung phone, Chrome, airplane mode. Model, Android version and Chrome version not yet recorded. |
+| 3 | Android, link | Worksheet opens in airplane mode and "Check answer" works | **Passed** (14 Nov). Samsung Galaxy A06 (SM-A065F), Android 16 (One UI 8.0), Chrome 157.0.8103.46, airplane mode. |
 | 4 | Android, file | Note which app opens a pack sent on WhatsApp, and whether "Check answer" works | Not run |
 | 5 | Android, SMS | Messages opens with "PASSALONG" and the code filled in | Not run |
 | 6 | iPhone | Checks 3 and 5 give the same results | Not run |
@@ -36,7 +36,7 @@ These checks decide what the demo can honestly claim. They were run before any n
 | 6 | Contrast | The palette in `base.css`, light and dark | Every text and control pair is at least 4.5 to 1 | Computed from the palette while the starter was written: lowest pair 4.54 to 1 (borders, light theme), body text 17.4 to 1. Not yet re-measured in a browser. |
 | 7 | Not colour alone | DevTools, Rendering, emulate achromatopsia | Right and wrong answers are still told apart by their words and marks | Not run |
 | 8 | Slow connection | DevTools network throttling at its slowest preset, cache disabled, load a pack link | Worksheet is usable; record the seconds and the bytes transferred | Not run |
-| 9 | Offline, link | Load once, then airplane mode, then reopen | Loop completes | **Passed** (14 Nov) on a Samsung phone in Chrome, airplane mode (model and versions to record), and on the live site in Chrome on a Mac. |
+| 9 | Offline, link | Load once, then airplane mode, then reopen | Loop completes | **Passed** (14 Nov) on a Samsung Galaxy A06 (Android 16, Chrome 157.0.8103.46) in airplane mode, and on the live site in Chrome on a Mac. |
 | 10 | Offline, file | Open the downloaded pack from disk with no network | Loop completes | **Passed** in headless Chrome on a Mac (`npm run e2e`, 14 Nov). Not yet on a phone. |
 | 11 | Scripts off | Disable JavaScript and open the pack file | Questions and the answer key are readable; no dead buttons show | **Passed** in headless Chrome on a Mac (`npm run e2e`, 14 Nov): 6 questions, 6 answer-key items, 0 check buttons visible. |
 | 12 | Shared phone | Finish as class number 17, choose "Next learner on this phone", finish as 18 | Two different codes; the first learner's answers are gone | Not run |
@@ -48,4 +48,4 @@ These checks decide what the demo can honestly claim. They were run before any n
 ## Not tested
 
 - Switch access, a Braille display, and a real 2G network.
-- Any phone other than the one Samsung in check 3.
+- Any phone other than the Galaxy A06 in check 3.
