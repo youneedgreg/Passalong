@@ -8,8 +8,11 @@ import { gzipSync } from 'node:zlib';
 const dist = 'dist';
 copyFileSync('dist-template/pack-template.html', join(dist, 'pack-template.html'));
 
+// Skips dotfiles such as the .DS_Store that macOS Finder can write into dist/ during a build,
+// so they are never listed in the size report or cached by the service worker.
 const walk = (dir) =>
   readdirSync(dir).flatMap((name) => {
+    if (name.startsWith('.')) return [];
     const path = join(dir, name);
     return statSync(path).isDirectory() ? walk(path) : [path];
   });
