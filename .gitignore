@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-template
+out
+.DS_Store
+.vercel
+.env*
+*.local.md
+media.local/
+scripts.local/
