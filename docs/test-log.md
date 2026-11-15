@@ -4,7 +4,7 @@ What was tested, how, on what, and what happened. A test that failed or was not 
 
 All test data is made up: the sample worksheet in `src/core/sample.ts` and invented class numbers. People who helped test are not named, and their answers and codes are not kept.
 
-Last updated: 15 Nov 2026 (phones, TalkBack and plain language).
+Last updated: 15 Nov 2026 (people tests).
 
 ## Day-1 checks
 
@@ -52,6 +52,12 @@ These checks decide what the demo can honestly claim. They were run before any n
 | 14 | Typing mistakes in a code | Unit test (`tests/core.test.ts`, "catches every single-character typo") | All 372 single-character typos rejected (12 characters × 31 wrong letters) | **Passed** (14 Nov, Vitest 5.1.0, Node 24.12.0). |
 | 15 | Automated checks | Lighthouse accessibility and the axe DevTools extension on all three screens | Record the score and the number of issues, whatever they are | **Recorded** (15 Nov) on the live site after PR #12. Lighthouse 13.6.0 accessibility score: **100** on Make, Practise, Collect and About. axe-core 4.14.0 (the engine behind axe DevTools; WCAG 2.0 to 2.2 A and AA plus best practices): **0 violations** on each. Needs review: the contrast items in row 6, and on Practise the `aria-label` on the code paragraph, which ARIA does not allow on a paragraph. That was fixed the same day (see "Known issues"); on a local build of the fix, axe's needs-review list for Practise is empty and the other results are unchanged. Automated tools find only some problems. |
 | 16 | Plain language | Read every on-screen sentence aloud to someone who is not a developer | They can say what each one means | **Passed** (15 Nov) by hand: read aloud to someone who is not a developer, who could say what each sentence means. No sentence was changed. |
+
+## People tests
+
+| When | Who | What they did | Result |
+| --- | --- | --- | --- |
+| 15 Nov | Six people who had not worked on Passalong | Each did the sample worksheet on their own phone and sent the code | **All six finished the worksheet and sent a code.** Nobody reported anything that confused them, so nothing was changed. Their names, phones, answers and codes were not kept. |
 
 ## Known issues
 
