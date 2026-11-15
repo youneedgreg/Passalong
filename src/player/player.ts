@@ -36,16 +36,24 @@ export function startPlayer(app: HTMLElement, pack: Pack): void {
 
   document.title = `${pack.title} · Passalong`;
   app.innerHTML =
+    `<p class="skip"><a href="#finish-h" id="skip">Skip to the end</a></p>` +
     renderPack(pack) +
-    `<section class="finish js-only" aria-labelledby="finish-h"><h2 id="finish-h">Finished?</h2>` +
+    `<section class="finish js-only" aria-labelledby="finish-h"><h2 id="finish-h" tabindex="-1">Finished?</h2>` +
     `<label for="learner">Your class number (optional, 1 to 99)</label>` +
     `<input id="learner" type="text" inputmode="numeric" maxlength="2" autocomplete="off">` +
+    `<p id="solved"></p>` +
     `<p><button type="button" id="finish">Show my code</button></p>` +
     `<div id="result" role="status" tabindex="-1"></div></section>`;
 
   const fb = (i: number) => app.querySelector<HTMLElement>(`#q${i + 1}-fb`)!;
   const why = (i: number) => app.querySelector<HTMLElement>(`#q${i + 1}-why`);
   const inputs = (i: number) => Array.from(app.querySelectorAll<HTMLInputElement>(`[name="q${i + 1}"]`));
+  const solvedLine = app.querySelector<HTMLElement>('#solved')!;
+
+  // Not a live region: each check already announces "Correct." or "Not yet.".
+  function showSolved(): void {
+    solvedLine.textContent = `${state.solved.filter(Boolean).length} of ${total} solved`;
+  }
 
   function lock(i: number): void {
     inputs(i).forEach((el) => (el.disabled = true));
@@ -89,9 +97,16 @@ export function startPlayer(app: HTMLElement, pack: Pack): void {
       fb(i).className = 'fb wrong';
     }
     save(key, state);
+    showSolved();
   }
 
   app.addEventListener('click', (event) => {
+    // The link player keeps the worksheet in the address after #, so the skip link must not change it.
+    if ((event.target as HTMLElement).closest('#skip')) {
+      event.preventDefault();
+      app.querySelector<HTMLElement>('#finish-h')!.focus();
+      return;
+    }
     const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.check');
     if (button) check(Number(button.dataset.i));
   });
@@ -166,4 +181,5 @@ export function startPlayer(app: HTMLElement, pack: Pack): void {
       lock(i);
     }
   });
+  showSolved();
 }

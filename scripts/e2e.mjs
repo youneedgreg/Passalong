@@ -25,6 +25,13 @@ const browser = await chromium.launch(
 );
 
 async function play(page, label) {
+  // "Skip to the end" is the first thing Tab reaches; Enter moves focus to "Finished?" and leaves the address alone.
+  const hashBefore = await page.evaluate(() => location.hash);
+  await page.keyboard.press('Tab');
+  const firstTab = await page.evaluate(() => document.activeElement.textContent);
+  await page.keyboard.press('Enter');
+  const skip = await page.evaluate((h) => `${document.activeElement.id}, address ${location.hash === h ? 'unchanged' : 'CHANGED'}`, hashBefore);
+  const solvedAtStart = await page.textContent('#solved');
   // Q1 wrong first (option 2), then right. Q3 typed right with hint opened. Rest untouched.
   await page.check('input[name="q1"][value="2"]');
   await page.click('.check[data-i="0"]');
@@ -35,12 +42,13 @@ async function play(page, label) {
   await page.click('#q3 summary');
   await page.fill('#q3-in', ' 7 / 8 ');
   await page.click('.check[data-i="2"]');
+  const solved = await page.textContent('#solved');
   await page.fill('#learner', '17');
   await page.click('#finish');
   const code = await page.textContent('.code');
   const sms = await page.getAttribute('.send a', 'href');
   const decoded = decodeCode(code, pack.check, pack.questions.length);
-  console.log(`[${label}]`, { wrong, right, code, sms, decoded: JSON.stringify(decoded) });
+  console.log(`[${label}]`, { firstTab, skip, solvedAtStart, solved, wrong, right, code, sms, decoded: JSON.stringify(decoded) });
   return code;
 }
 
