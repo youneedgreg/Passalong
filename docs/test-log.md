@@ -4,7 +4,7 @@ What was tested, how, on what, and what happened. A test that failed or was not 
 
 All test data is made up: the sample worksheet in `src/core/sample.ts` and invented class numbers. People who helped test are not named, and their answers and codes are not kept.
 
-Last updated: 15 Nov 2026 (people tests and Wednesday's gate).
+Last updated: 15 Nov 2026 (the look changed after the people tests).
 
 ## Day-1 checks
 
@@ -59,6 +59,14 @@ These checks decide what the demo can honestly claim. They were run before any n
 | When | Who | What they did | Result |
 | --- | --- | --- | --- |
 | 15 Nov | Six people who had not worked on Passalong | Each did the sample worksheet on their own phone and sent the code | **All six finished the worksheet and sent a code, with no help.** Nothing confused them. All six said the screens could look much better, the fonts included. Their names, phones, answers and codes were not kept. |
+
+## After the people tests
+
+All six testers said the screens could look much better, the fonts included, so that was the one thing changed (15 Nov). The screens now use cards, clearer headings, a highlighted chosen answer, tinted feedback boxes and a boxed code, in light and dark. Passalong still uses only the phone's own fonts: no font is downloaded.
+
+- **Size:** the file for the sample worksheet grew from 21,768 to **23,104 bytes** (22.6 KB), and the empty player from 13.4 KB to **14.7 KB** (budget 20 KB). The scan is now about 94 times larger, not 100.
+- **Re-run on a local build** (Google Chrome 157.0.8103.51 on a Mac, by script): rows 4, 5, 6, 7, 11, 12 and 15 all passed again. Lighthouse 13.6.0 accessibility **100** and axe-core 4.14.0 **0 violations** on all four pages; every control at least 48 px tall, all text at least 16 px, no sideways scrolling at 320 px; every new colour pair at least 4.5 to 1 in light and dark. Row 8 on the local build: usable after 4.9 s, 16,271 bytes. `npm test` 22 of 22 and `npm run e2e` passed.
+- **Not yet re-run:** the live site, and anything by hand or on a phone. The rows above keep their earlier results until then.
 
 ## Known issues
 
