@@ -1,14 +1,68 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Passalong</title>
+    <meta name="description" content="Turn a worksheet into a tiny file that works offline on any phone.">
     <link rel="icon" href="/icon.svg">
     <link rel="manifest" href="/manifest.webmanifest">
     <script type="module" src="/src/builder/main.ts"></script>
   </head>
   <body>
-    <main id="app"><h1>Passalong</h1></main>
+    <main id="app">
+      <h1>Passalong</h1>
+      <p class="lead">Turn a worksheet into a tiny file that works offline on any phone.</p>
+
+      <ol class="steps">
+        <li><strong>1 Make</strong> <span>Write or paste a worksheet below.</span></li>
+        <li><strong>2 Practise</strong> <span>Open it as a learner, or send the file. It works with no internet.</span></li>
+        <li><strong>3 Collect</strong> <span>Paste the codes learners send back: <a href="/collect/">open Collect</a>.</span></li>
+      </ol>
+
+      <noscript><p>The Make screen needs scripts turned on. Worksheet files you already have still open without them.</p></noscript>
+
+      <section aria-labelledby="make-h" class="js-only">
+        <h2 id="make-h">1 Make</h2>
+        <label for="box" class="label">Your worksheet</label>
+        <p id="box-help" class="help">One line per part. The format is under "How to write a worksheet" below.</p>
+        <textarea id="box" rows="16" spellcheck="true" autocapitalize="sentences" aria-describedby="box-help status"></textarea>
+
+        <p id="status" role="status" aria-live="polite"></p>
+        <ol id="problems" class="problems" hidden></ol>
+
+        <div class="actions">
+          <a id="open" class="button" target="_blank" rel="noopener" aria-disabled="true">Open as a learner<span class="sr-only"> (opens a new tab)</span></a>
+          <button id="copy" type="button" disabled>Copy link</button>
+          <button id="download" type="button" disabled>Download file</button>
+        </div>
+        <p id="copy-note" class="note" role="status" aria-live="polite"></p>
+        <p id="manual" hidden>
+          <label for="manual-link">Copying did not work here. Select this link and copy it:</label>
+          <input id="manual-link" type="text" readonly>
+        </p>
+
+        <p id="sizes" class="sizes">File: … · Link: … · Code: …</p>
+
+        <details id="help">
+          <summary>How to write a worksheet</summary>
+          <p>Start each line with one of these. A line that starts with anything else is joined to the line above. A blank line ends that.</p>
+          <dl class="format">
+            <dt><code>Title:</code></dt><dd>The worksheet title. Required, 80 characters at most.</dd>
+            <dt><code>Subject:</code> <code>Level:</code> <code>Intro:</code></dt><dd>Shown under the title. Optional.</dd>
+            <dt><code>Lang:</code></dt><dd>Language code for screen readers, such as <code>en</code> or <code>sw</code>. Defaults to <code>en</code>.</dd>
+            <dt><code>Teacher-SMS:</code></dt><dd>The number "Send by SMS" goes to. Optional.</dd>
+            <dt><code>Q:</code></dt><dd>Starts a question. 1 to 20 questions.</dd>
+            <dt><code>*</code></dt><dd>The correct option. Exactly one per question.</dd>
+            <dt><code>-</code></dt><dd>A wrong option. Text after <code>|</code> is the feedback for that mistake.</dd>
+            <dt><code>=</code></dt><dd>An accepted typed answer, 1 to 5 per question. Don't mix with options.</dd>
+            <dt><code>Hint:</code> <code>Why:</code></dt><dd>The hint and the worked answer. Optional.</dd>
+          </dl>
+          <button id="sample" type="button">Load the sample</button>
+        </details>
+      </section>
+
+      <p class="foot"><a href="/about/">About Passalong</a></p>
+    </main>
   </body>
 </html>
