@@ -24,13 +24,17 @@ const browser = await chromium.launch(
   process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH, args: ['--no-sandbox'] } : { channel: 'chrome' },
 );
 
-async function play(page, label) {
+async function play(page, label, { fresh = true } = {}) {
   // "Skip to the end" is the first thing Tab reaches; Enter moves focus to "Finished?" and leaves the address alone.
-  const hashBefore = await page.evaluate(() => location.hash);
-  await page.keyboard.press('Tab');
-  const firstTab = await page.evaluate(() => document.activeElement.textContent);
-  await page.keyboard.press('Enter');
-  const skip = await page.evaluate((h) => `${document.activeElement.id}, address ${location.hash === h ? 'unchanged' : 'CHANGED'}`, hashBefore);
+  // Only on a fresh load: after "Next learner" focus starts on the title, past the link.
+  let firstTab = 'not checked', skip = 'not checked';
+  if (fresh) {
+    const hashBefore = await page.evaluate(() => location.hash);
+    await page.keyboard.press('Tab');
+    firstTab = await page.evaluate(() => document.activeElement.textContent);
+    await page.keyboard.press('Enter');
+    skip = await page.evaluate((h) => `${document.activeElement.id}, address ${location.hash === h ? 'unchanged' : 'CHANGED'}`, hashBefore);
+  }
   const solvedAtStart = await page.textContent('#solved');
   // Q1 wrong first (option 2), then right. Q3 typed right with hint opened. Rest untouched.
   await page.check('input[name="q1"][value="2"]');
@@ -90,6 +94,14 @@ async function play(page, label) {
   await page.reload();
   console.log('[offline] h1 after reload:', await page.textContent('h1'));
   await play(page, 'offline');
+  // "Next learner on this phone" starts the player again: answers cleared, and #app keeps one click and one toggle listener.
+  await page.click('#next');
+  const cdp = await context.newCDPSession(page);
+  const { result } = await cdp.send('Runtime.evaluate', { expression: 'document.getElementById("app")' });
+  const { listeners } = await cdp.send('DOMDebugger.getEventListeners', { objectId: result.objectId });
+  const count = (type) => listeners.filter((l) => l.type === type).length;
+  console.log('[next learner]', await page.textContent('#solved'), '| Q1 checked:', await page.isChecked('input[name="q1"][value="1"]'), '| #app listeners: click', count('click'), 'toggle', count('toggle'));
+  await play(page, 'next learner', { fresh: false });
   const second = await context.newPage();
   await second.goto('http://localhost:4317/p#' + encodeLink(SAMPLE)).catch((e) => console.log('[offline] /p without slash failed:', e.message));
   console.log('[offline] /p without slash h1:', await second.textContent('h1').catch(() => 'n/a'));

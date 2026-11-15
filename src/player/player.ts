@@ -29,7 +29,11 @@ function save(key: string, state: Saved): void {
   }
 }
 
+// "Next learner" and a new link both start the player again on the same #app, so the previous run's listeners must go.
+let detach: (() => void) | null = null;
+
 export function startPlayer(app: HTMLElement, pack: Pack): void {
+  detach?.();
   const total = pack.questions.length;
   const key = `passalong:${pack.id}`;
   let state = load(key, total);
@@ -100,7 +104,7 @@ export function startPlayer(app: HTMLElement, pack: Pack): void {
     showSolved();
   }
 
-  app.addEventListener('click', (event) => {
+  function onClick(event: Event): void {
     // The link player keeps the worksheet in the address after #, so the skip link must not change it.
     if ((event.target as HTMLElement).closest('#skip')) {
       event.preventDefault();
@@ -109,21 +113,24 @@ export function startPlayer(app: HTMLElement, pack: Pack): void {
     }
     const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.check');
     if (button) check(Number(button.dataset.i));
-  });
+  }
+
+  function onToggle(event: Event): void {
+    const details = event.target as HTMLDetailsElement;
+    const i = Number(details.dataset?.i);
+    if (details.open && Number.isInteger(i) && !state.solved[i]) {
+      state.hints[i] = true;
+      save(key, state);
+    }
+  }
 
   // "toggle" does not bubble, so listen in the capture phase.
-  app.addEventListener(
-    'toggle',
-    (event) => {
-      const details = event.target as HTMLDetailsElement;
-      const i = Number(details.dataset?.i);
-      if (details.open && Number.isInteger(i) && !state.solved[i]) {
-        state.hints[i] = true;
-        save(key, state);
-      }
-    },
-    true,
-  );
+  app.addEventListener('click', onClick);
+  app.addEventListener('toggle', onToggle, true);
+  detach = () => {
+    app.removeEventListener('click', onClick);
+    app.removeEventListener('toggle', onToggle, true);
+  };
 
   const learner = app.querySelector<HTMLInputElement>('#learner')!;
   const result = app.querySelector<HTMLElement>('#result')!;
