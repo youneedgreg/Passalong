@@ -1,14 +1,81 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Passalong</title>
+    <title>Collect answers · Passalong</title>
+    <meta name="description" content="Paste the codes learners send back and see which questions the class missed.">
     <link rel="icon" href="/icon.svg">
     <link rel="manifest" href="/manifest.webmanifest">
     <script type="module" src="/src/collect/main.ts"></script>
   </head>
   <body>
-    <main id="app"><h1>Passalong</h1></main>
+    <main id="app">
+      <h1>Collect answers</h1>
+      <p class="lead">Paste the codes learners send back. You see which questions the class missed, and which mistakes they made. Nothing leaves this device.</p>
+
+      <noscript><p>Collect needs scripts turned on.</p></noscript>
+
+      <div class="js-only">
+        <section aria-labelledby="pick-h">
+          <h2 id="pick-h">1 Choose the worksheet</h2>
+          <label for="pack" class="label">Worksheet</label>
+          <select id="pack" aria-describedby="pack-status"></select>
+          <p id="pack-empty" class="help" hidden>Make a worksheet first, or paste its link below.</p>
+          <label for="link" class="label">Or paste the worksheet link</label>
+          <input id="link" type="url" inputmode="url" autocomplete="off" spellcheck="false" aria-describedby="pack-status">
+          <p id="pack-status" class="status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section aria-labelledby="codes-h">
+          <h2 id="codes-h">2 Paste the codes</h2>
+          <label for="codes" class="label">Codes from learners</label>
+          <p id="codes-help" class="help">Paste whole text messages, one per line. The codes are picked out for you.</p>
+          <textarea id="codes" rows="8" spellcheck="false" autocapitalize="characters" aria-describedby="codes-help"></textarea>
+          <div class="actions">
+            <button id="read" type="button">Read codes</button>
+            <button id="sample-codes" type="button" class="quiet">Load sample codes</button>
+          </div>
+          <p id="result" class="status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section id="results" aria-labelledby="class-h" hidden>
+          <h2 id="class-h">3 The class</h2>
+
+          <h3 id="problems-h" hidden>Lines with a problem</h3>
+          <ol id="problems" class="problems" aria-labelledby="problems-h" hidden></ol>
+
+          <div class="scroll" role="region" aria-labelledby="questions-cap" tabindex="0">
+            <table id="questions">
+              <caption id="questions-cap">Questions, most missed first</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Question</th>
+                  <th scope="col">Right first time</th>
+                  <th scope="col">Most common wrong answer</th>
+                  <th scope="col">Opened the hint</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <div class="scroll" role="region" aria-labelledby="learners-cap" tabindex="0">
+            <table id="learners">
+              <caption id="learners-cap">Learners, first answers</caption>
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="help">✓ right first time · ✗ B wrong, picked option B · – left blank · + hint: opened the hint</p>
+          <p id="repeats" class="note" hidden></p>
+
+          <button id="csv" type="button">Download CSV</button>
+          <p id="csv-note" class="note" role="status" aria-live="polite"></p>
+        </section>
+      </div>
+
+      <p class="foot"><a href="/">Make a worksheet</a> · <a href="/about/">About Passalong</a></p>
+    </main>
   </body>
 </html>
