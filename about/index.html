@@ -32,7 +32,7 @@
           <li><strong>Barrier:</strong> the worksheet arrives as a scanned PDF. It costs data to download, cannot be answered on the phone, gives a screen reader nothing to read, and the teacher gets nothing back.</li>
           <li><strong>Change:</strong> the same worksheet as one file of about 21 KB that works in airplane mode. The learner checks each answer and gets feedback for the mistake they made. Their first answers go back to the teacher as a 12-character code in one text message.</li>
         </ul>
-        <p>Our scan of the six sample questions, made with a phone's document scanner, was 2,165,971 bytes. The Passalong file for the same questions is 21,562 bytes, about 100 times smaller.</p>
+        <p>Our scan of the six sample questions, made with a phone's document scanner, was 2,165,971 bytes. The Passalong file for the same questions is 21,768 bytes, about 100 times smaller.</p>
       </section>
 
       <section aria-labelledby="privacy-h">
@@ -67,7 +67,7 @@
               <tr><th scope="row">12. Shared phone</th><td>Two learners in turn get two different codes; the first learner's answers are gone</td><td><strong>Passed</strong> (15 Nov) in Chrome on a Mac, by script: two different codes, and nothing of the first learner's left after "Next learner on this phone".</td></tr>
               <tr><th scope="row">13. Old phone</th><td>The loop completes on the oldest phone available</td><td>Not run</td></tr>
               <tr><th scope="row">14. Typing mistakes in a code</th><td>Every single-character typo in the sample code is rejected</td><td><strong>Passed</strong> (14 Nov): all 372 rejected, by unit test</td></tr>
-              <tr><th scope="row">15. Automated checks</th><td>Lighthouse and axe on all three screens; the scores are recorded, whatever they are</td><td><strong>Recorded</strong> (15 Nov): Lighthouse accessibility 100 on all four pages; axe 0 violations. axe flagged one item for review: the code's spoken label is on a paragraph, which may stop a screen reader reading it one character at a time. Not fixed yet.</td></tr>
+              <tr><th scope="row">15. Automated checks</th><td>Lighthouse and axe on all three screens; the scores are recorded, whatever they are</td><td><strong>Recorded</strong> (15 Nov): Lighthouse accessibility 100 on all four pages; axe 0 violations. axe flagged one item for review: the code's spoken label was on a paragraph, which may stop a screen reader reading it one character at a time. Fixed the same day: screen readers now get a copy that spells the code out. Not yet heard on a real screen reader.</td></tr>
               <tr><th scope="row">16. Plain language</th><td>Someone who is not a developer can say what each sentence on screen means</td><td>Not run</td></tr>
             </tbody>
           </table>
