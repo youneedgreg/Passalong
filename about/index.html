@@ -3,12 +3,104 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Passalong</title>
+    <title>About · Passalong</title>
+    <meta name="description" content="What Passalong is, how it was tested, what it cannot do, and who made it.">
     <link rel="icon" href="/icon.svg">
     <link rel="manifest" href="/manifest.webmanifest">
     <script type="module" src="/src/about/main.ts"></script>
   </head>
   <body>
-    <main id="app"><h1>Passalong</h1></main>
+    <main id="app">
+      <h1>About Passalong</h1>
+      <p class="lead">Worksheets that fit in a file of about 21 KB, work offline on any phone, and send answers back as a short code by SMS.</p>
+
+      <nav aria-labelledby="contents-h">
+        <h2 id="contents-h" class="small">On this page</h2>
+        <ul class="contents">
+          <li><a href="#why-h">Who it is for</a></li>
+          <li><a href="#privacy-h">Privacy</a></li>
+          <li><a href="#tests-h">How it was tested</a></li>
+          <li><a href="#limits-h">Limitations</a></li>
+          <li><a href="#credits-h">Credits</a></li>
+        </ul>
+      </nav>
+
+      <section aria-labelledby="why-h">
+        <h2 id="why-h">Who it is for</h2>
+        <ul>
+          <li><strong>Learner:</strong> a Grade 7 learner in rural Kenya who does homework on a parent's shared Android phone with prepaid data.</li>
+          <li><strong>Barrier:</strong> the worksheet arrives as a scanned PDF. It costs data to download, cannot be answered on the phone, gives a screen reader nothing to read, and the teacher gets nothing back.</li>
+          <li><strong>Change:</strong> the same worksheet as one file of about 21 KB that works in airplane mode. The learner checks each answer and gets feedback for the mistake they made. Their first answers go back to the teacher as a 12-character code in one text message.</li>
+        </ul>
+        <p>Our scan of the six sample questions, made with a phone's document scanner, was 2,165,971 bytes. The Passalong file for the same questions is 21,562 bytes, about 100 times smaller.</p>
+      </section>
+
+      <section aria-labelledby="privacy-h">
+        <h2 id="privacy-h">Privacy</h2>
+        <p>Passalong has no server and no accounts. A worksheet lives in its link or its file. Answers stay on the learner's phone until the learner chooses to send the code. The code holds an optional class number and the first answer to each question. It holds no name. Nothing is tracked.</p>
+        <p>The site makes no requests to anyone else: no analytics, fonts or cookies. All the examples use a made-up worksheet, invented class numbers and the made-up number +254 700 000 000.</p>
+      </section>
+
+      <section aria-labelledby="tests-h">
+        <h2 id="tests-h">How it was tested</h2>
+        <p>Each row says what was tested, on what, and what happened. A row that failed or was not run stays here, marked as such. Passalong is not claimed to be fully accessible: this table says what it was tested with and what it was not tested with. The full log, with every step, is in <a href="https://github.com/youneedgreg/Passalong/blob/main/docs/test-log.md">docs/test-log.md</a>.</p>
+        <p><strong>Tested on:</strong> a Samsung Galaxy A06 (Android 16, Chrome 157) and Google Chrome on a Mac.</p>
+
+        <div class="scroll" role="region" aria-labelledby="tests-cap" tabindex="0">
+          <table>
+            <caption id="tests-cap">Test table, last updated 15 Nov 2026</caption>
+            <thead>
+              <tr><th scope="col">Test</th><th scope="col">Passes when</th><th scope="col">Result</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">1. Keyboard only</th><td>The full loop completes with no mouse; focus is always visible; nothing traps focus</td><td>Not run</td></tr>
+              <tr><th scope="row">2. Screen reader, desktop</th><td>VoiceOver with Safari reads each question, each option and "Correct." or "Not yet."</td><td>Not run</td></tr>
+              <tr><th scope="row">3. Screen reader, phone</th><td>Same with TalkBack, and the code is read one character at a time</td><td>Not run</td></tr>
+              <tr><th scope="row">4. Zoom</th><td>At 200% and 400%: no sideways scrolling and no clipped text</td><td>Not run</td></tr>
+              <tr><th scope="row">5. Small screen</th><td>At 320 by 568 everything reflows; every button and option is at least 48 px tall</td><td>Not run</td></tr>
+              <tr><th scope="row">6. Contrast</th><td>Every text and control colour pair is at least 4.5 to 1</td><td>Worked out from the colour values: lowest pair 4.54 to 1, body text 17.4 to 1. Not yet measured in a browser.</td></tr>
+              <tr><th scope="row">7. Not colour alone</th><td>With colour blindness emulated, right and wrong are still told apart by words and marks</td><td>Not run</td></tr>
+              <tr><th scope="row">8. Slow connection</th><td>A worksheet link is usable on the slowest throttling preset</td><td>Not run</td></tr>
+              <tr><th scope="row">9. Offline, link</th><td>Load once, go into airplane mode, reopen: the loop completes</td><td><strong>Passed</strong> (14 Nov) on the Galaxy A06 in airplane mode, and in Chrome on a Mac</td></tr>
+              <tr><th scope="row">10. Offline, file</th><td>The downloaded file opens from disk with no network and the loop completes</td><td><strong>Passed</strong> in Chrome on a Mac (14 and 15 Nov). Not yet on a phone.</td></tr>
+              <tr><th scope="row">11. Scripts off</th><td>Questions and the answer key are readable; no dead buttons show</td><td><strong>Passed</strong> in Chrome on a Mac (14 Nov): 6 questions, 6 answers, no check buttons</td></tr>
+              <tr><th scope="row">12. Shared phone</th><td>Two learners in turn get two different codes; the first learner's answers are gone</td><td>Not run</td></tr>
+              <tr><th scope="row">13. Old phone</th><td>The loop completes on the oldest phone available</td><td>Not run</td></tr>
+              <tr><th scope="row">14. Typing mistakes in a code</th><td>Every single-character typo in the sample code is rejected</td><td><strong>Passed</strong> (14 Nov): all 372 rejected, by unit test</td></tr>
+              <tr><th scope="row">15. Automated checks</th><td>Lighthouse and axe on all three screens; the scores are recorded, whatever they are</td><td>Not run</td></tr>
+              <tr><th scope="row">16. Plain language</th><td>Someone who is not a developer can say what each sentence on screen means</td><td>Not run</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Not tested:</strong> switch access, a Braille display, a real 2G network, an iPhone, and any phone other than the Galaxy A06. Automated tools find only some accessibility problems, so their scores are not a pass on their own.</p>
+      </section>
+
+      <section aria-labelledby="limits-h">
+        <h2 id="limits-h">Limitations</h2>
+        <ul>
+          <li>Text only: no images, diagrams or maths notation beyond plain text such as 3/4 and x².</li>
+          <li>The screens are in English and nothing is read aloud. The worksheet itself can be in any language.</li>
+          <li>Up to 20 questions per worksheet, and one correct option per question. No QR codes.</li>
+          <li>The code carries only each learner's first answer and whether they opened the hint, not their later tries.</li>
+          <li>Codes can be forged and a worksheet file can be edited before it is passed on. Passalong is for practice, not exams.</li>
+          <li>A code checked against the wrong worksheet is caught 4,095 times in 4,096.</li>
+          <li>A link works offline only after it has been opened once with a connection. A downloaded file works offline from the start.</li>
+          <li>If storage is blocked, for example in some file viewers, answers are lost when the page closes.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="credits-h">
+        <h2 id="credits-h">Credits</h2>
+        <ul>
+          <li><strong>Made by</strong> Gregory Temwa Odete, for AccessED Hacks, from 14 Nov 2026. Source code: <a href="https://github.com/youneedgreg/Passalong">github.com/youneedgreg/Passalong</a>, MIT licence.</li>
+          <li><strong>Libraries:</strong> <a href="https://github.com/101arrowz/fflate">fflate</a> (compresses the worksheet into the link), and to build and test: <a href="https://vite.dev">Vite</a>, <a href="https://github.com/richardtallent/vite-plugin-singlefile">vite-plugin-singlefile</a>, <a href="https://vitest.dev">Vitest</a> and <a href="https://playwright.dev">Playwright</a>.</li>
+          <li><strong>AI assistance:</strong> Passalong was built with Claude. Claude researched the hackathon, designed the formats, and wrote the starter (the core, the player, the build scripts and the tests), the Make and Collect screens, the player's later additions and this page. Gregory decides what gets built, reviews and tests every change before it is merged, and runs the device tests.</li>
+          <li><strong>Earlier work:</strong> none. Everything was written during the hackathon.</li>
+          <li><strong>Data:</strong> the sample worksheet and every code shown are made up.</li>
+        </ul>
+      </section>
+
+      <p class="foot"><a href="/">Make a worksheet</a> · <a href="/collect/">Collect answers</a></p>
+    </main>
   </body>
 </html>

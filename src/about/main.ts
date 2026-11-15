@@ -1,5 +1,6 @@
 import '../shared/base.css';
+import './about.css';
 import { registerSW } from '../shared/sw-register';
 
-// TODO: build this screen from the roadmap's product spec.
+// The About page is static HTML; scripts only make it work offline.
 registerSW();

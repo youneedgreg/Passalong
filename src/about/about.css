@@ -1,0 +1,15 @@
+/* About page only, so the player's budget does not grow. */
+.lead { font-size: 1.125rem; margin: 0 0 1rem; }
+h2.small { font-size: 1rem; margin-bottom: .25rem; }
+.contents { padding-left: 1.25rem; margin-top: 0; }
+.contents li { margin: 0; } .contents a { display: inline-block; padding: .75rem 0; }
+section { border-top: 1px solid var(--line); margin-top: 1.5rem; }
+li { margin: .5rem 0; }
+.scroll { overflow-x: auto; margin: 1rem 0 .5rem; }
+table { border-collapse: collapse; min-width: 36rem; }
+caption { text-align: left; font-weight: 600; padding-bottom: .5rem; }
+th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); }
+tbody th { font-weight: 600; min-width: 9rem; }
+.foot { margin-top: 2rem; }
+.foot a { display: inline-block; padding: .75rem 0; }
+a { color: var(--accent); overflow-wrap: anywhere; }
