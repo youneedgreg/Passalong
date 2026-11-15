@@ -174,6 +174,24 @@ async function play(page, label, { fresh = true } = {}) {
   console.log('[collect] e2e code + repeat + chatter:', await page5.textContent('#result'), '|', await page5.$$eval('#problems li', (l) => l.map((x) => x.textContent)));
   console.log('[collect] page errors:', errors5);
   await col.close();
+
+  // 6. The About page: static, readable with scripts off, and it asks nothing of any other host.
+  for (const js of [true, false]) {
+    const about = await browser.newContext({ javaScriptEnabled: js });
+    const page6 = await about.newPage();
+    const errors6 = [];
+    const hosts6 = new Set();
+    page6.on('pageerror', (e) => errors6.push(String(e)));
+    page6.on('request', (r) => hosts6.add(new URL(r.url()).host));
+    await page6.goto('http://localhost:4317/about/');
+    const sections = await page6.$$eval('main h2', (h) => h.map((x) => x.textContent));
+    const rows = await page6.locator('#tests-h ~ .scroll tbody tr').count();
+    const wide = await page6.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+    await page6.setViewportSize({ width: 320, height: 568 });
+    const wide320 = await page6.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+    console.log(`[about${js ? '' : ', scripts off'}]`, await page6.textContent('h1'), '|', sections.join(', '), '| test rows:', rows, '| sideways scroll at 320 px:', wide320 || wide, '| hosts:', [...hosts6], '| page errors:', errors6);
+    await about.close();
+  }
   preview.kill();
 }
 
