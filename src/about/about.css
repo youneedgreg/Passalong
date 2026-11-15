@@ -11,5 +11,5 @@ caption { text-align: left; font-weight: 600; padding-bottom: .5rem; }
 th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); }
 tbody th { font-weight: 600; min-width: 9rem; }
 .foot { margin-top: 2rem; }
-.foot a { display: inline-block; padding: .75rem 0; }
+.foot a, p a, li a { display: inline-block; padding: .75rem 0; }
 a { color: var(--accent); overflow-wrap: anywhere; }

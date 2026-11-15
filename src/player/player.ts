@@ -40,8 +40,9 @@ export function startPlayer(app: HTMLElement, pack: Pack): void {
 
   document.title = `${pack.title} · Passalong`;
   app.innerHTML =
-    `<p class="skip"><a href="#finish-h" id="skip">Skip to the end</a></p>` +
-    renderPack(pack) +
+    // The skip link sits right after the title block: first in Tab order on load, and next after the title
+    // when "Next learner on this phone" moves focus back to the title.
+    renderPack(pack).replace('</header>', `</header><p class="skip"><a href="#finish-h" id="skip">Skip to the end</a></p>`) +
     `<section class="finish js-only" aria-labelledby="finish-h"><h2 id="finish-h" tabindex="-1">Finished?</h2>` +
     `<label for="learner">Your class number (optional, 1 to 99)</label>` +
     `<input id="learner" type="text" inputmode="numeric" maxlength="2" autocomplete="off">` +
