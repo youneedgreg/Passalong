@@ -48,4 +48,9 @@ Serve `dist/` from a domain root (all paths start with `/`). `vercel.json` is in
 
 ## Disclosure
 
-This starter was written with AI assistance (Claude) on 14 Nov 2026, during the hackathon window. Say so in the submission.
+Passalong is built with AI assistance (Claude), inside the hackathon window:
+
+- **14 Nov 2026:** Claude researched the hackathon, designed the formats and wrote the starter (the core in `src/core/`, the player, the build scripts and the tests).
+- **15 Nov 2026:** Claude wrote the Make screen (`index.html`, `src/builder/`) and its end-to-end step in `scripts/e2e.mjs`.
+
+Gregory Temwa Odete decides what gets built, reviews and tests every change before it is merged, and runs the device tests recorded in `docs/test-log.md`.
