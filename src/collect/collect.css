@@ -1,8 +1,9 @@
 /* Collect screen only, so the player's budget does not grow. */
-.lead { font-size: 1.125rem; margin: 0 0 1rem; }
+.lead { font-size: 1.1875rem; margin: 0 0 1.25rem; color: var(--muted); }
+#app > h1:first-child { padding-bottom: .5rem; border-bottom: 3px solid var(--accent); }
 .label { display: block; font-weight: 600; margin-top: 1rem; }
-.help, .note { margin: .25rem 0 .75rem; }
-select, #link, #codes { font: inherit; width: 100%; min-height: 3rem; padding: .75rem; border: 1px solid var(--line); border-radius: .5rem; color: inherit; background: transparent; }
+.help, .note { margin: .25rem 0 .75rem; color: var(--muted); }
+select, #link, #codes { font: inherit; width: 100%; min-height: 3rem; padding: .75rem; border: 1px solid var(--line); border-radius: .625rem; color: inherit; background: var(--card); }
 select option { color: var(--ink); background: var(--paper); }
 #codes { font-family: ui-monospace, Menlo, Consolas, monospace; resize: vertical; }
 .status { font-weight: 600; min-height: 1.5rem; margin: .75rem 0 .5rem; }
@@ -14,9 +15,10 @@ button.quiet { background: transparent; color: var(--accent); }
 .problems li { margin: .25rem 0; }
 /* position: relative keeps the hidden helper text inside the scroll box, so the page itself never scrolls sideways. */
 .scroll { position: relative; overflow-x: auto; margin: 1.5rem 0 .5rem; }
-table { border-collapse: collapse; min-width: 100%; }
+table { border-collapse: collapse; min-width: 100%; background: var(--card); }
+thead th { background: var(--tint); }
 caption { text-align: left; font-weight: 600; padding-bottom: .5rem; }
-th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); }
+th, td { text-align: left; vertical-align: top; padding: .625rem .75rem; border-bottom: 1px solid var(--soft); }
 #questions th[scope="row"] { min-width: 11rem; }
 #questions td:nth-child(3) { min-width: 10rem; }
 #questions td:nth-child(2), #questions td:nth-child(4) { white-space: nowrap; }
