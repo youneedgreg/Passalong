@@ -95,7 +95,8 @@ function jumpToLine(n: number): void {
   box.setSelectionRange(start, start + lines[index].length);
 }
 
-// 4. A valid worksheet: build the link, turn the actions on, update sizes, save it.
+// 4. A valid worksheet: build the link, turn the actions on, update sizes.
+// It is saved for Collect only when the teacher uses it (Open, Copy or Download), not on every keystroke.
 function showReady(pack: Pack): void {
   current = pack;
   link = `${location.origin}/p/#${encodeLink(pack.source)}`;
@@ -106,7 +107,6 @@ function showReady(pack: Pack): void {
   setActions(true);
   manualLink.value = link;
   showSizes(pack);
-  savePack(pack);
 }
 
 // 5. Fetched once, at page load, so nothing is requested later and the service worker can serve it offline.
@@ -126,6 +126,7 @@ async function getTemplate(): Promise<string | null> {
 async function download(): Promise<void> {
   const pack = current;
   if (!pack) return;
+  savePack(pack);
   const tpl = await getTemplate();
   if (!tpl) {
     say(copyNote, 'The file could not be made here. Reload the page while online and try again.');
@@ -144,7 +145,8 @@ async function download(): Promise<void> {
 
 // 7. Copy the link; if the clipboard is not allowed, show it for copying by hand.
 async function copyLink(): Promise<void> {
-  if (!link) return;
+  if (!link || !current) return;
+  savePack(current);
   try {
     await navigator.clipboard.writeText(link);
     copyButton.textContent = 'Copied';
@@ -158,7 +160,7 @@ async function copyLink(): Promise<void> {
   }
 }
 
-// 8. Keep the 20 most recent packs on this device so Collect can find them.
+// 8. Keep the 20 most recently used packs on this device so Collect can find them.
 type Saved = { id: string; title: string; source: string; made: number };
 
 function savePack(pack: Pack): void {
@@ -192,6 +194,12 @@ if (box.value === '') box.value = SAMPLE;
 box.addEventListener('input', onInput);
 copyButton.addEventListener('click', copyLink);
 downloadButton.addEventListener('click', download);
+// Enter, click, Ctrl-click and middle-click all open the link; a right-click (button 2) does not.
+for (const type of ['click', 'auxclick'] as const) {
+  openLink.addEventListener(type, (e) => {
+    if (current && e.button !== 2) savePack(current);
+  });
+}
 $('sample').addEventListener('click', loadSample);
 check();
 getTemplate().then(() => current && showSizes(current));
