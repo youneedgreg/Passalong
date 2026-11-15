@@ -44,18 +44,29 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Pages (navigations) are network-first so a new deploy shows on the first online visit;
+// with no connection, an error, or no answer within 3 s, the cached page is used.
+// Everything else (scripts, styles, icons) is cache-first.
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
   if (request.method !== 'GET' || url.origin !== location.origin) return;
+  const navigate = request.mode === 'navigate';
   event.respondWith(
     caches.open(CACHE).then(async (cache) => {
       const hit =
         (await cache.match(request, { ignoreSearch: true, ignoreVary: true })) ||
-        (request.mode === 'navigate' && !url.pathname.endsWith('/')
+        (navigate && !url.pathname.endsWith('/')
           ? await cache.match(url.pathname + '/', { ignoreVary: true })
           : undefined);
-      return hit || fetch(request);
+      if (!hit) return fetch(request);
+      if (!navigate) return hit;
+      const fresh = fetch(request).then(
+        (response) => (response.ok || response.type === 'opaqueredirect' ? response : hit),
+        () => hit,
+      );
+      const late = new Promise((resolve) => setTimeout(() => resolve(hit), 3000));
+      return Promise.race([fresh, late]);
     }),
   );
 });
