@@ -126,19 +126,19 @@ Each row says what was tested, on what, and what happened. Passalong is not clai
 
 | # | Test | Result |
 | --- | --- | --- |
-| 1 | Keyboard only | Passed (15 Nov) in Chrome 157 on a Mac, by a script that only presses keys, and by hand in Safari 27.0: a focus ring at every stop, nothing traps focus. Not on a phone. |
-| 2 | Screen reader, desktop | Passed (15 Nov) by hand with VoiceOver and Safari 27.0 on macOS 27.0, on Make, Practise and Collect: each question with its number, each option with its position, "Correct." or "Not yet." without focus moving, the code one character at a time. |
-| 3 | Screen reader, phone | Passed (15 Nov) by hand with TalkBack on an Android phone, on Practise. Phone model and versions not recorded. |
+| 1 | Keyboard only | Passed (15 Nov) in Chrome 157 on a Mac, by a script that only presses keys, and by hand in Safari 27.0: a focus ring at every stop, nothing traps focus. Not on a phone. Passed again after the new look (15 Nov). |
+| 2 | Screen reader, desktop | Passed (15 Nov) by hand with VoiceOver and Safari 27.0 on macOS 27.0, on Make, Practise and Collect: each question with its number, each option with its position, "Correct." or "Not yet." without focus moving, the code one character at a time. Passed again after the new look (15 Nov). |
+| 3 | Screen reader, phone | Passed (15 Nov) by hand with TalkBack on an Android phone, on Practise. Phone model and versions not recorded. Passed again after the new look (15 Nov). |
 | 4 | Zoom 200% and 400% | Passed (15 Nov) in Chrome on a Mac, by script, on all four pages. Zoom was imitated by narrowing the window. The first run found Collect scrolling sideways; fixed and re-run. |
 | 5 | Small screen, 320 × 568 | Passed (15 Nov) in Chrome on a Mac, by script: every control at least 48 px tall, all text at least 16 px. The first run found short links and 13 to 14 px text; fixed and re-run. |
 | 6 | Contrast | Passed (15 Nov) with axe in Chrome on a Mac, light and dark: 0 failures. |
 | 7 | Not colour alone | Passed (15 Nov) with colour blindness emulated: "✗ Not yet." and "✓ Correct." are told apart by marks and words. |
 | 8 | Slow connection | Passed (15 Nov) in Chrome on a Mac with Slow 3G settings and no cache: usable after 5.1 s, 15,322 bytes; after the new look, 6.2 s and 15,780 bytes (the time varies between runs). |
 | 9 | Offline, link | Passed (14 Nov) on a Samsung Galaxy A06 (Android 16, Chrome 157) in airplane mode, and in Chrome on a Mac. Passed again on the same phone after the new look (15 Nov). |
-| 10 | Offline, file | Passed in Chrome on a Mac (14 and 15 Nov), and on an Android phone with a file sent on WhatsApp (15 Nov; the app that opened it was not recorded). |
+| 10 | Offline, file | Passed in Chrome on a Mac (14 and 15 Nov), and on an Android phone with a file sent on WhatsApp (15 Nov; the app that opened it was not recorded). Passed again after the new look (15 Nov). |
 | 11 | Scripts off | Passed in Chrome on a Mac: 6 questions and 6 answers readable, no dead buttons. |
 | 12 | Shared phone | Passed (15 Nov) by script: two learners in turn get two different codes, and nothing of the first is left. |
-| 13 | Old phone | Passed (15 Nov) by hand on the oldest phone available. Model and versions not recorded. |
+| 13 | Old phone | Passed (15 Nov) by hand on the oldest phone available. Model and versions not recorded. Passed again after the new look (15 Nov). |
 | 14 | Typing mistakes in a code | Passed: all 372 single-character typos rejected, by unit test. |
 | 15 | Automated checks | Lighthouse 13.6.0 accessibility 100 and axe-core 4.14.0 0 violations, on all four pages (15 Nov). Automated tools find only some problems. |
 | 16 | Plain language | Passed (15 Nov): every sentence read aloud to someone who is not a developer. |
