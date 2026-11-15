@@ -48,9 +48,8 @@ Serve `dist/` from a domain root (all paths start with `/`). `vercel.json` is in
 
 ## Disclosure
 
-Passalong is built with AI assistance (Claude), inside the hackathon window:
+Passalong was built inside the hackathon window, from 14 Nov 2026, with AI assistance (Claude).
 
-- **14 Nov 2026:** Claude researched the hackathon, designed the formats and wrote the starter (the core in `src/core/`, the player, the build scripts and the tests).
-- **15 Nov 2026:** Claude wrote the Make screen (`index.html`, `src/builder/`), the Collect screen (`collect/index.html`, `src/collect/`, including the made-up sample codes) and their end-to-end steps in `scripts/e2e.mjs`, the player's "Skip to the end" link and "4 of 6 solved" line (`src/player/player.ts`), and the About page (`about/index.html`, `src/about/`).
+**Who did what.** I researched the hackathon and chose the learner, the barrier and the design. I decide what gets built, review and test every change before merging it, made the "before" scan, and run the phone and device tests recorded in `docs/test-log.md`.
 
-Gregory Temwa Odete decides what gets built, reviews and tests every change before it is merged, and runs the device tests recorded in `docs/test-log.md`.
+**AI assistance.** Claude wrote most of the code to my decisions: the starter (`src/core/`, the player, build scripts, tests), the Make and Collect screens, the player's skip link and solved count, the About page, and the scripted accessibility checks and the fixes they led to. Claude also proposed the worksheet, link and code formats.
