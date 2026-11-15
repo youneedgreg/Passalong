@@ -134,7 +134,7 @@ Each row says what was tested, on what, and what happened. Passalong is not clai
 | 6 | Contrast | Passed (15 Nov) with axe in Chrome on a Mac, light and dark: 0 failures. |
 | 7 | Not colour alone | Passed (15 Nov) with colour blindness emulated: "✗ Not yet." and "✓ Correct." are told apart by marks and words. |
 | 8 | Slow connection | Passed (15 Nov) in Chrome on a Mac with Slow 3G settings and no cache: usable after 5.1 s, 15,322 bytes; after the new look, 6.2 s and 15,780 bytes (the time varies between runs). |
-| 9 | Offline, link | Passed (14 Nov) on a Samsung Galaxy A06 (Android 16, Chrome 157) in airplane mode, and in Chrome on a Mac. |
+| 9 | Offline, link | Passed (14 Nov) on a Samsung Galaxy A06 (Android 16, Chrome 157) in airplane mode, and in Chrome on a Mac. Passed again on the same phone after the new look (15 Nov). |
 | 10 | Offline, file | Passed in Chrome on a Mac (14 and 15 Nov), and on an Android phone with a file sent on WhatsApp (15 Nov; the app that opened it was not recorded). |
 | 11 | Scripts off | Passed in Chrome on a Mac: 6 questions and 6 answers readable, no dead buttons. |
 | 12 | Shared phone | Passed (15 Nov) by script: two learners in turn get two different codes, and nothing of the first is left. |
@@ -153,6 +153,7 @@ Each row says what was tested, on what, and what happened. Passalong is not clai
 - The code carries only each learner's first answer and whether they opened the hint, not their later tries.
 - Codes can be forged and a worksheet file can be edited before it is passed on. Passalong is for practice, not exams.
 - A link works offline only after it has been opened once with a connection. A downloaded file works offline from the start.
+- After Passalong is updated, a phone that opened it before shows the new version only on its second visit with a connection: the first visit fetches the update in the background.
 - If storage is blocked, for example in some file viewers, answers are lost when the page closes.
 - On a shared phone, a learner's answers stay on the phone until someone chooses "Next learner on this phone".
 
