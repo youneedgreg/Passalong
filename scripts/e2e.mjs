@@ -106,10 +106,12 @@ async function play(page, label) {
   await page4.fill('#box', sampleText);
   await page4.waitForFunction(() => document.getElementById('status').textContent.startsWith('Ready'));
   const href = await page4.getAttribute('#open', 'href');
+  const unsaved = await page4.evaluate(() => localStorage.getItem('passalong:packs'));
+  console.log('[make] saved before Open/Copy/Download:', unsaved);
   console.log('[make] fixed:', await page4.textContent('#status'), '| link is the sample link:', href === `http://localhost:4317/p/#${encodeLink(SAMPLE)}`);
   const [learner] = await Promise.all([make.waitForEvent('page'), page4.click('#open')]);
   await learner.waitForLoadState();
-  console.log('[make] learner tab h1:', await learner.textContent('h1'));
+  console.log('[make] learner tab h1:', await learner.textContent('h1'), '| saved after Open:', await page4.evaluate(() => JSON.parse(localStorage.getItem('passalong:packs') ?? '[]').map((p) => p.id)));
   const [dl] = await Promise.all([page4.waitForEvent('download'), page4.click('#download')]);
   const saved = readFileSync(await dl.path(), 'utf8');
   console.log('[make] download:', dl.suggestedFilename(), saved.length, 'bytes | same as e2e file:', saved === html);
