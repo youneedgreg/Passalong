@@ -4,7 +4,7 @@ What was tested, how, on what, and what happened. A test that failed or was not 
 
 All test data is made up: the sample worksheet in `src/core/sample.ts` and invented class numbers. People who helped test are not named, and their answers and codes are not kept.
 
-Last updated: 14 Nov 2026.
+Last updated: 15 Nov 2026.
 
 ## Day-1 checks
 
@@ -24,6 +24,12 @@ These checks decide what the demo can honestly claim. They were run before any n
 | 10 | Devpost | Every field of the submission form is visible | Not run |
 | 11 | Name | Nothing in education is called Passalong | **Passed** (14 Nov). Searched Devpost and the app stores; one unrelated "Pass-Along" travel app on the App Store. |
 
+## Daily gates
+
+| Day | Gate | Passes when | Result |
+| --- | --- | --- | --- |
+| Sun 15 Nov | Make, end to end | On the live site, edit the sample, download the file, go offline, open that file from disk | **Passed** (15 Nov, 10:49 Nairobi) on https://passalong-pi.vercel.app, in Google Chrome on a Mac driven by a Playwright script. Q1 changed to "What is 1/2 + 1/3? (practice)"; status stayed "Ready: 6 questions."; size line "File: 20.5 KB · Link: 1,235 characters · Code: 12 characters". **Download file** saved `adding-fractions-with-different-denomina-SVEC.html` (21,025 bytes). In a new browser session with the network cut, the file opened from disk showed the edited Q1; a wrong answer showed "Not yet. You added the tops and the bottoms…", the right one "Correct."; "Show my code" gave `1550-0800-00R0`. No page errors; the only host contacted was `passalong-pi.vercel.app`. Offline was simulated in the browser, not by turning Wi-Fi off. Not yet run by hand or on a phone. |
+
 ## Test table
 
 | # | Test | How to run it | Passes when | Result |
@@ -37,7 +43,7 @@ These checks decide what the demo can honestly claim. They were run before any n
 | 7 | Not colour alone | DevTools, Rendering, emulate achromatopsia | Right and wrong answers are still told apart by their words and marks | Not run |
 | 8 | Slow connection | DevTools network throttling at its slowest preset, cache disabled, load a pack link | Worksheet is usable; record the seconds and the bytes transferred | Not run |
 | 9 | Offline, link | Load once, then airplane mode, then reopen | Loop completes | **Passed** (14 Nov) on a Samsung Galaxy A06 (Android 16, Chrome 157.0.8103.46) in airplane mode, and on the live site in Chrome on a Mac. |
-| 10 | Offline, file | Open the downloaded pack from disk with no network | Loop completes | **Passed** in headless Chrome on a Mac (`npm run e2e`, 14 Nov). Not yet on a phone. |
+| 10 | Offline, file | Open the downloaded pack from disk with no network | Loop completes | **Passed** in headless Chrome on a Mac (`npm run e2e`, 14 Nov), and with a file downloaded from the live Make screen in Chrome on a Mac (Sunday's gate, 15 Nov; Q1 and the code only). Not yet on a phone. |
 | 11 | Scripts off | Disable JavaScript and open the pack file | Questions and the answer key are readable; no dead buttons show | **Passed** in headless Chrome on a Mac (`npm run e2e`, 14 Nov): 6 questions, 6 answer-key items, 0 check buttons visible. |
 | 12 | Shared phone | Finish as class number 17, choose "Next learner on this phone", finish as 18 | Two different codes; the first learner's answers are gone | Not run |
 | 13 | Old phone | The oldest phone available; note model, Android and Chrome versions | Loop completes | Not run |
