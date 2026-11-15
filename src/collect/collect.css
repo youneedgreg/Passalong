@@ -1,0 +1,26 @@
+/* Collect screen only, so the player's budget does not grow. */
+.lead { font-size: 1.125rem; margin: 0 0 1rem; }
+.label { display: block; font-weight: 600; margin-top: 1rem; }
+.help, .note { margin: .25rem 0 .75rem; }
+select, #link, #codes { font: inherit; width: 100%; min-height: 3rem; padding: .75rem; border: 1px solid var(--line); border-radius: .5rem; color: inherit; background: transparent; }
+select option { color: var(--ink); background: var(--paper); }
+#codes { font-family: ui-monospace, Menlo, Consolas, monospace; resize: vertical; }
+.status { font-weight: 600; min-height: 1.5rem; margin: .75rem 0 .5rem; }
+.status.ok::before { content: "✓ "; } .status.bad::before { content: "✗ "; }
+.status.ok { color: var(--good); } .status.bad { color: var(--bad); }
+.actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 .25rem; }
+button.quiet { background: transparent; color: var(--accent); }
+.problems { padding-left: 1.5rem; margin: 0 0 1.5rem; color: var(--bad); }
+.problems li { margin: .25rem 0; }
+.scroll { overflow-x: auto; margin: 1.5rem 0 .5rem; }
+table { border-collapse: collapse; min-width: 100%; }
+caption { text-align: left; font-weight: 600; padding-bottom: .5rem; }
+th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); }
+#questions th[scope="row"] { min-width: 11rem; }
+#questions td:nth-child(3) { min-width: 10rem; }
+#questions td:nth-child(2), #questions td:nth-child(4) { white-space: nowrap; }
+#learners td, #learners thead th:nth-child(n + 3) { white-space: nowrap; }
+.fbline { display: block; }
+.foot { margin-top: 2rem; }
+a { color: var(--accent); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
