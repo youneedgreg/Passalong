@@ -23,5 +23,6 @@ th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; b
 #learners td, #learners thead th:nth-child(n + 3) { white-space: nowrap; }
 .fbline { display: block; }
 .foot { margin-top: 2rem; }
+.foot a { display: inline-block; padding: .75rem 0; }
 a { color: var(--accent); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
