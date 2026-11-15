@@ -120,7 +120,7 @@ Each row says what was tested, on what, and what happened. Passalong is not clai
 | 5 | Small screen, 320 × 568 | Passed (15 Nov) in Chrome on a Mac, by script: every control at least 48 px tall, all text at least 16 px. The first run found short links and 13 to 14 px text; fixed and re-run. |
 | 6 | Contrast | Passed (15 Nov) with axe in Chrome on a Mac, light and dark: 0 failures. |
 | 7 | Not colour alone | Passed (15 Nov) with colour blindness emulated: "✗ Not yet." and "✓ Correct." are told apart by marks and words. |
-| 8 | Slow connection | Passed (15 Nov) in Chrome on a Mac with Slow 3G settings and no cache: usable after 5.1 s, 15,322 bytes. |
+| 8 | Slow connection | Passed (15 Nov) in Chrome on a Mac with Slow 3G settings and no cache: usable after 5.1 s, 15,322 bytes; after the new look, 6.2 s and 15,780 bytes (the time varies between runs). |
 | 9 | Offline, link | Passed (14 Nov) on a Samsung Galaxy A06 (Android 16, Chrome 157) in airplane mode, and in Chrome on a Mac. |
 | 10 | Offline, file | Passed in Chrome on a Mac (14 and 15 Nov), and on an Android phone with a file sent on WhatsApp (15 Nov; the app that opened it was not recorded). |
 | 11 | Scripts off | Passed in Chrome on a Mac: 6 questions and 6 answers readable, no dead buttons. |
