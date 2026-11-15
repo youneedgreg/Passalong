@@ -153,7 +153,6 @@ Each row says what was tested, on what, and what happened. Passalong is not clai
 - The code carries only each learner's first answer and whether they opened the hint, not their later tries.
 - Codes can be forged and a worksheet file can be edited before it is passed on. Passalong is for practice, not exams.
 - A link works offline only after it has been opened once with a connection. A downloaded file works offline from the start.
-- After Passalong is updated, a phone that opened it before shows the new version only on its second visit with a connection: the first visit fetches the update in the background.
 - If storage is blocked, for example in some file viewers, answers are lost when the page closes.
 - On a shared phone, a learner's answers stay on the phone until someone chooses "Next learner on this phone".
 
