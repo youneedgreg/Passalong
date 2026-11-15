@@ -1,6 +1,6 @@
 # Passalong
 
-Worksheets that fit in a file of about 21 KB, work offline on any phone, and send answers back as a short code by SMS.
+Worksheets that fit in a file of about 23 KB, work offline on any phone, and send answers back as a short code by SMS.
 
 A teacher pastes a worksheet as plain text. Passalong turns it into one small file or link that works with no connection, checks each answer with feedback for the mistake made, and ends with a 12-character code the learner can text back. No accounts, no server, no AI.
 
@@ -12,7 +12,7 @@ A teacher pastes a worksheet as plain text. Passalong turns it into one small fi
 
 **Barrier:** the worksheet arrives as a scanned PDF. It costs data to download, cannot be answered on the phone, gives a screen reader nothing to read, and the teacher gets nothing back.
 
-**Change:** the same worksheet as one file of about 21 KB that works in airplane mode. The learner checks each answer and gets feedback for the mistake they made. Their first answers go back to the teacher as a 12-character code in one text message.
+**Change:** the same worksheet as one file of about 23 KB that works in airplane mode. The learner checks each answer and gets feedback for the mistake they made. Their first answers go back to the teacher as a 12-character code in one text message.
 
 ## Try it in two minutes
 
@@ -31,7 +31,7 @@ I printed the six sample questions and scanned them with a phone's document scan
 
 | | Before: scanned PDF | After: Passalong file |
 | --- | --- | --- |
-| Size | 2,165,971 bytes (2 pages) | 21,768 bytes, about 100 times smaller |
+| Size | 2,165,971 bytes (2 pages) | 23,104 bytes, about 94 times smaller |
 | Works offline | Once downloaded | Yes, tested in airplane mode on a Samsung Galaxy A06 |
 | Can be answered on the phone | No | Yes, with feedback for each wrong answer |
 | Read by a screen reader | Nothing to read: the scan is pictures with no text layer | Tested with VoiceOver and TalkBack (see the test table) |
