@@ -25,6 +25,19 @@ A teacher pastes a worksheet as plain text. Passalong turns it into one small fi
 
 Step 3 works once the page has been opened with a connection. A downloaded file works offline from the start.
 
+## Screenshots
+
+Taken on 15 Nov 2026 from the live site, with the sample worksheet, in dark mode. The phone shots are from a Samsung Galaxy A06 in airplane mode.
+
+| | |
+| --- | --- |
+| ![Make: the sample worksheet in the box, "Ready: 6 questions.", the buttons Open as a learner, Copy link and Download file, and the size line "File: 22.6 KB · Link: 1,235 characters · Code: 12 characters".](docs/screenshots/1-make.png) | ![Make with the star removed from line 7: "1 problem to fix. Line 7: Mark exactly one option as correct with *." The buttons are turned off until it is fixed.](docs/screenshots/2-problem.png) |
+| **Make:** the teacher pastes plain text and sees the file size. | **Make:** a mistake is explained with its line number. |
+| ![Practise on the phone in airplane mode: the worksheet title and Question 1, What is 1/2 + 1/3?, with four options.](docs/screenshots/3-airplane.png) | ![Question 2 answered wrong with 10: "Not yet. 4 and 6 do not divide into 10. Try again, or open the hint."](docs/screenshots/4-feedback.png) |
+| **Practise:** works on the phone in airplane mode. | **Practise:** a wrong answer gets feedback for that mistake. |
+| ![The end of the worksheet: class number 17 and the code 01E1-2CR0-010G, with Send by SMS, Copy code and Next learner on this phone.](docs/screenshots/5-code.png) | ![Collect after loading the sample codes: 8 codes read, two lines flagged, and the questions most missed first, led by Q6 with 3 of 8 right and the most common wrong answer A: 4/12.](docs/screenshots/6-collect.png) |
+| **The code:** 12 characters to send by SMS. | **Collect:** which questions the class missed, and the most common wrong answer. |
+
 ## Before and after
 
 I printed the six sample questions and scanned them with a phone's document scanner, as a teacher would.
@@ -181,6 +194,7 @@ It prints the code `01E1-284G-02ZG` twice and writes the sample file to `out/`. 
 | `scripts/` | The build's post-step (service worker, sizes, budget) and the browser check |
 | `tests/` | Unit tests |
 | `docs/test-log.md` | Every test, on what, and what happened |
+| `docs/screenshots/` | The screenshots above |
 
 ## Credits
 
