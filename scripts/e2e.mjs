@@ -117,7 +117,43 @@ async function play(page, label) {
   console.log('[make] download:', dl.suggestedFilename(), saved.length, 'bytes | same as e2e file:', saved === html);
   const stored = await page4.evaluate(() => JSON.parse(localStorage.getItem('passalong:packs')).map((p) => p.id));
   console.log('[make] saved packs:', stored, '| page errors:', errors);
+  // The pack Make saved shows up in Collect's list on the same device.
+  await page4.goto('http://localhost:4317/collect/');
+  console.log('[collect] saved packs in the list:', await page4.$$eval('#pack option', (o) => o.map((x) => x.textContent)));
   await make.close();
+
+  // 5. Collect from scratch: no saved packs, then the sample codes, the tables, the CSV and a pasted link.
+  const col = await browser.newContext({ acceptDownloads: true });
+  const page5 = await col.newPage();
+  const errors5 = [];
+  page5.on('pageerror', (e) => errors5.push(String(e)));
+  await page5.goto('http://localhost:4317/collect/');
+  console.log('[collect] empty:', await page5.isVisible('#pack-empty'), '|', await page5.textContent('#pack-empty'));
+  await page5.click('#read');
+  console.log('[collect] read with no worksheet:', await page5.textContent('#result'));
+  await page5.click('#sample-codes');
+  console.log('[collect] sample:', await page5.textContent('#pack-status'), '|', await page5.textContent('#result'));
+  console.log('[collect] problems:', await page5.$$eval('#problems li', (l) => l.map((x) => x.textContent)));
+  console.log('[collect] questions:', await page5.$$eval('#questions tbody tr', (r) => r.map((x) => [...x.children].map((c) => c.textContent.replace(/\s+/g, ' ').trim()).join(' | '))));
+  console.log('[collect] learners:', await page5.$$eval('#learners tbody tr', (r) => r.map((x) => [...x.children].map((c) => c.querySelector('[aria-hidden]')?.textContent ?? c.textContent).join(' '))));
+  console.log('[collect] repeats shown:', await page5.isVisible('#repeats'));
+  await page5.fill('#codes', (await page5.evaluate(() => document.getElementById('codes').value)) + '\nPASSALONG 01E1-284G-02ZG');
+  await page5.click('#read');
+  console.log('[collect] class number twice:', await page5.textContent('#result'), '|', await page5.textContent('#repeats'));
+  await page5.fill('#codes', (await page5.evaluate(() => document.getElementById('codes').value)).replace(/\nPASSALONG 01E1-284G-02ZG$/, ''));
+  await page5.click('#read');
+  const [csv] = await Promise.all([page5.waitForEvent('download'), page5.click('#csv')]);
+  const csvText = readFileSync(await csv.path(), 'utf8');
+  console.log('[collect] csv:', csv.suggestedFilename(), '| lines:', csvText.trim().split('\r\n').length, '|', csvText.split('\r\n').slice(0, 2).join(' / '));
+  await page5.fill('#link', `http://localhost:4317/p/#${encodeLink(SAMPLE)}`);
+  console.log('[collect] link pasted:', await page5.textContent('#pack-status'));
+  await page5.fill('#link', 'http://localhost:4317/p/#nonsense');
+  console.log('[collect] bad link:', await page5.textContent('#pack-status'));
+  await page5.fill('#codes', 'PASSALONG 01E1-284G-02ZG\nPASSALONG 01E1-284G-02ZG\nthanks teacher');
+  await page5.click('#read');
+  console.log('[collect] e2e code + repeat + chatter:', await page5.textContent('#result'), '|', await page5.$$eval('#problems li', (l) => l.map((x) => x.textContent)));
+  console.log('[collect] page errors:', errors5);
+  await col.close();
   preview.kill();
 }
 
