@@ -86,6 +86,36 @@ async function play(page, label) {
   await second.goto('http://localhost:4317/p#' + encodeLink(SAMPLE)).catch((e) => console.log('[offline] /p without slash failed:', e.message));
   console.log('[offline] /p without slash h1:', await second.textContent('h1').catch(() => 'n/a'));
   await context.close();
+
+  // 4. The Make screen: sample is ready, break it, jump to the problem, fix it, open the link, download the file.
+  const make = await browser.newContext({ acceptDownloads: true });
+  const page4 = await make.newPage();
+  const errors = [];
+  page4.on('pageerror', (e) => errors.push(String(e)));
+  await page4.goto('http://localhost:4317/');
+  await page4.waitForFunction(() => document.getElementById('status').textContent.startsWith('Ready'));
+  await page4.waitForFunction(() => !document.getElementById('sizes').textContent.startsWith('File: …'));
+  console.log('[make] status:', await page4.textContent('#status'), '|', await page4.textContent('#sizes'));
+  const sampleText = await page4.inputValue('#box');
+  await page4.fill('#box', sampleText.replace('* 5/6\n', ''));
+  await page4.waitForSelector('#problems button');
+  console.log('[make] broken:', await page4.textContent('#status'), '|', await page4.textContent('#problems'), '| copy disabled:', await page4.isDisabled('#copy'), '| open href:', await page4.getAttribute('#open', 'href'));
+  await page4.click('#problems button');
+  const picked = await page4.evaluate(() => { const b = document.getElementById('box'); return document.activeElement === b ? b.value.slice(b.selectionStart, b.selectionEnd) : 'box not focused'; });
+  console.log('[make] jump selects:', JSON.stringify(picked));
+  await page4.fill('#box', sampleText);
+  await page4.waitForFunction(() => document.getElementById('status').textContent.startsWith('Ready'));
+  const href = await page4.getAttribute('#open', 'href');
+  console.log('[make] fixed:', await page4.textContent('#status'), '| link is the sample link:', href === `http://localhost:4317/p/#${encodeLink(SAMPLE)}`);
+  const [learner] = await Promise.all([make.waitForEvent('page'), page4.click('#open')]);
+  await learner.waitForLoadState();
+  console.log('[make] learner tab h1:', await learner.textContent('h1'));
+  const [dl] = await Promise.all([page4.waitForEvent('download'), page4.click('#download')]);
+  const saved = readFileSync(await dl.path(), 'utf8');
+  console.log('[make] download:', dl.suggestedFilename(), saved.length, 'bytes | same as e2e file:', saved === html);
+  const stored = await page4.evaluate(() => JSON.parse(localStorage.getItem('passalong:packs')).map((p) => p.id));
+  console.log('[make] saved packs:', stored, '| page errors:', errors);
+  await make.close();
   preview.kill();
 }
 
