@@ -12,7 +12,8 @@ select option { color: var(--ink); background: var(--paper); }
 button.quiet { background: transparent; color: var(--accent); }
 .problems { padding-left: 1.5rem; margin: 0 0 1.5rem; color: var(--bad); }
 .problems li { margin: .25rem 0; }
-.scroll { overflow-x: auto; margin: 1.5rem 0 .5rem; }
+/* position: relative keeps the hidden helper text inside the scroll box, so the page itself never scrolls sideways. */
+.scroll { position: relative; overflow-x: auto; margin: 1.5rem 0 .5rem; }
 table { border-collapse: collapse; min-width: 100%; }
 caption { text-align: left; font-weight: 600; padding-bottom: .5rem; }
 th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); }
