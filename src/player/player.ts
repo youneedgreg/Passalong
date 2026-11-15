@@ -150,7 +150,8 @@ export function startPlayer(app: HTMLElement, pack: Pack): void {
     result.innerHTML =
       `<p>First try: <strong>${score(pack, attempts)} of ${total}</strong> correct.</p>` +
       `<p>Send this code to your teacher:</p>` +
-      `<p class="code" aria-label="${spoken}">${code}</p>` +
+      // aria-label isn't allowed on a <p>; screen readers get a spelled-out copy instead.
+      `<p><span class="code" aria-hidden="true">${code}</span><span class="sr-only">${spoken}</span></p>` +
       `<p class="send"><a class="button" href="sms:${to}${sep}body=${body}">Send by SMS</a> ` +
       `<button type="button" id="copy">Copy code</button> ` +
       `<button type="button" id="next">Next learner on this phone</button></p>`;

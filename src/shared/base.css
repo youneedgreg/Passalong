@@ -22,7 +22,8 @@ button:disabled { opacity: .55; cursor: default; }
 .fb.right { color: var(--good); } .fb.wrong { color: var(--bad); }
 summary { padding: .75rem 0; cursor: pointer; font-weight: 600; }
 .why { border-left: 4px solid var(--good); padding-left: .75rem; }
-.code { font: 700 1.5rem/1.4 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .08em; word-break: break-all; }
+.code { display: block; font: 700 1.5rem/1.4 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .08em; word-break: break-all; }
 .send > * { margin: 0 .5rem .5rem 0; }
 .no-js .js-only { display: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
